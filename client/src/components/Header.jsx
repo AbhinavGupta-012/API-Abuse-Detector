@@ -3,11 +3,11 @@ import { RefreshCw } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const pageMeta = {
-  '/':       { title: 'Dashboard',        sub: 'Real-time API traffic overview'                     },
-  '/ips':    { title: 'IP Management',    sub: 'Monitor and manage suspicious IP addresses'          },
-  '/alerts': { title: 'Security Alerts',  sub: 'Active threats and security notifications'           },
-  '/rules':  { title: 'Rate Limit Rules', sub: 'Configure abuse detection rules and thresholds'      },
-  '/logs':   { title: 'Request Logs',     sub: 'Detailed API request history and forensic data'      },
+  '/': { title: 'Dashboard', sub: 'Real-time API traffic overview' },
+  '/ips': { title: 'IP Management', sub: 'Monitor and manage suspicious IP addresses' },
+  '/alerts': { title: 'Security Alerts', sub: 'Active threats and security notifications' },
+  // '/rules':  { title: 'Rate Limit Rules', sub: 'Configure abuse detection rules and thresholds'      },
+  '/logs': { title: 'Request Logs', sub: 'Detailed API request history and forensic data' },
 }
 
 function Header() {
