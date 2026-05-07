@@ -19,7 +19,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/ips" element={<IPManagement />} />
               <Route path="/alerts" element={<Alerts />} />
-              <Route path="/rules" element={<Rules />} />
+              {/* <Route path="/rules" element={<Rules />} /> */}
               <Route path="/logs" element={<Logs />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
