@@ -8,11 +8,11 @@ import {
 } from 'lucide-react'
 
 const navItems = [
-  { to: '/',       icon: LayoutDashboard, label: 'Dashboard'         },
-  { to: '/ips',    icon: Shield,          label: 'IP Management'     },
-  { to: '/alerts', icon: Bell,            label: 'Alerts', badge: 5  },
-  { to: '/rules',  icon: Settings,        label: 'Rate Limit Rules'  },
-  { to: '/logs',   icon: FileText,        label: 'Request Logs'      },
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/ips', icon: Shield, label: 'IP Management' },
+  { to: '/alerts', icon: Bell, label: 'Alerts', badge: 5 },
+  // { to: '/rules',  icon: Settings,        label: 'Rate Limit Rules'  },
+  { to: '/logs', icon: FileText, label: 'Request Logs' },
 ]
 
 function Sidebar() {
