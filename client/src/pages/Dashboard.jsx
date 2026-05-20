@@ -10,9 +10,11 @@ import {
 
 import StatCard from '../components/StatCard'
 import API from '../services/api'
+import axios from 'axios'
+
 
 const severityColor = { critical: 'danger', high: 'warning', medium: 'info', low: 'success' }
-const statusColor   = { blocked: 'danger',  suspicious: 'warning', allowed: 'success' }
+const statusColor = { blocked: 'danger', suspicious: 'warning', allowed: 'success' }
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null
@@ -67,8 +69,41 @@ function Dashboard() {
   const recentAlerts = alerts.filter(a => !a.resolved).slice(0, 5)
 
   const totalRequests = overview.totalRequests || 0
-  const totalBlocked  = topIPs.filter(ip => ip.status === "blocked").length
-  const activeAlerts  = recentAlerts.length
+  const totalBlocked = topIPs.filter(ip => ip.status === "blocked").length
+  const activeAlerts = recentAlerts.length
+
+
+  const submitted = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/mailSender',
+        {
+          name: form.name.value,
+          email: form.email.value,
+          app: form.appName.value
+        }
+      );
+
+      if (response.status === 200) {
+        showModal(true);
+      } else {
+        showModal(false);
+      }
+
+    } catch (err) {
+      showModal(false);
+    }
+  }
+
+  const showModal = (success) => {
+    if (success) {
+      console.log("Email sent");
+    } else {
+      console.log("Failed");
+    }
+  }
 
   return (
     <div className="dashboard">
@@ -148,48 +183,107 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* ── Recent Alerts ── */}
-      <div className="two-col-grid">
+      <div className='emailer-recent-alert'>
 
-        <div className="card">
+        {/* ── Recent Alerts ── */}
+        <div className="two-col-grid">
 
-          <div className="card-header">
-            <h3 className="card-title">Recent Alerts</h3>
-            <Link to="/alerts" className="card-link">View all →</Link>
-          </div>
+          <div className="card">
 
-          <div className="alert-list">
+            <div className="card-header">
+              <h3 className="card-title">Recent Alerts</h3>
+              <Link to="/alerts" className="card-link">View all →</Link>
+            </div>
 
-            {recentAlerts.map(alert => (
+            <div className="alert-list">
 
-              <div key={alert._id} className="alert-item">
+              {recentAlerts.map(alert => (
 
-                <span className={`badge badge-${severityColor[alert.severity]}`}>
-                  {alert.severity}
-                </span>
+                <div key={alert._id} className="alert-item">
 
-                <div className="alert-info">
-
-                  <span className="alert-type">
-                    {alert.message}
+                  <span className={`badge badge-${severityColor[alert.severity]}`}>
+                    {alert.severity}
                   </span>
 
-                  <span className="alert-time">
-                    {new Date(alert.createdAt).toLocaleString()}
-                  </span>
+                  <div className="alert-info">
+
+                    <span className="alert-type">
+                      {alert.message}
+                    </span>
+
+                    <span className="alert-time">
+                      {new Date(alert.createdAt).toLocaleString()}
+                    </span>
+
+                  </div>
 
                 </div>
 
-              </div>
+              ))}
 
-            ))}
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ── Add Your App ── */}
+        <div className="two-col-grid">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Add Your Application</h3>
+            </div>
+            <div className="alert-list">
+              <form className='add-your-app' onSubmit={submitted}>
+
+                <label htmlFor="name">
+                  Enter your name :
+                </label>
+
+                <input
+                  type="text"
+                  name="name"
+                  placeholder='Enter your name'
+                />
+
+                <br />
+
+                <label htmlFor="email">
+                  Enter your email :
+                </label>
+
+                <input
+                  type="email"
+                  placeholder='Enter your email'
+                  name="email"
+                />
+
+                <br />
+
+                <label htmlFor="appName">
+                  Enter your app name
+                </label>
+
+                <input
+                  type="text"
+                  name="appName"
+                  placeholder='Enter your application name'
+                />
+
+                <br />
+
+                <button type="submit">
+                  Submit
+                </button>
+
+              </form>
+            </div>
 
           </div>
 
         </div>
 
       </div>
-
       {/* ── Top IPs ── */}
       <div className="card dash-bottom-card">
 
