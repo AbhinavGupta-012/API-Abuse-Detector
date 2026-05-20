@@ -72,13 +72,15 @@ function Dashboard() {
   const totalBlocked = topIPs.filter(ip => ip.status === "blocked").length
   const activeAlerts = recentAlerts.length
 
+  const [modalMessage, setModalMessage] = useState("");
+  const [show, setShow] = useState(false);
 
   const submitted = async (e) => {
     e.preventDefault();
     const form = e.target;
     try {
       const response = await axios.post(
-        'http://localhost:5000/mailSender',
+        'http://localhost:5000/api/mailSender',
         {
           name: form.name.value,
           email: form.email.value,
@@ -88,6 +90,7 @@ function Dashboard() {
 
       if (response.status === 200) {
         showModal(true);
+        form.reset()
       } else {
         showModal(false);
       }
@@ -98,11 +101,18 @@ function Dashboard() {
   }
 
   const showModal = (success) => {
+
     if (success) {
-      console.log("Email sent");
+      setModalMessage("Email sent successfully!");
     } else {
-      console.log("Failed");
+      setModalMessage("Failed to send email.");
     }
+
+    setShow(true);
+
+    setTimeout(() => {
+      setShow(false);
+    }, 3000);
   }
 
   return (
@@ -278,7 +288,13 @@ function Dashboard() {
 
               </form>
             </div>
-
+            {
+              show && (
+                <div className='modal'>
+                  {modalMessage}
+                </div>
+              )
+            }
           </div>
 
         </div>

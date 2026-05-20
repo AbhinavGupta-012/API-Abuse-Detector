@@ -19,6 +19,7 @@ const abuseDetector = require("./middleware/abuseDetector");
 const statsRoutes = require("./routes/stats");
 const alertRoutes = require("./routes/alerts");
 const logRoutes = require("./routes/logs");
+const mailSender = require("./routes/mailSender")
 
 app.use("/api/ips", ipRoutes);
 app.use(requestLogger);
@@ -27,6 +28,7 @@ app.use(ipBlocker);
 app.use("/api/stats", statsRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/logs", logRoutes);
+app.use("/api/mailSender", mailSender)
 
 app.get("/", (req, res) => {
   res.json({ message: "API Abuse Detector Backend Running" });
