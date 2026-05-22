@@ -19,9 +19,9 @@ router.post('/', async (req, res) => {
                         to: email,
                         subject: "Application Received",
                         html: `
-        <h2>Hello ${name}</h2>
-        <p>Your application for <b>${app}</b> has been received. You will shortly receive the further steps for the completion of the process.</p>
-      `
+                                <h2>Hello ${name}</h2>
+                                <p>Your application for <b>${app}</b> has been received. You will shortly receive the further steps for the completion of the process.</p>
+                        `
                 });
                 res.status(200).json({
                         success: true,
