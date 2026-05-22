@@ -3,10 +3,10 @@ import { CheckCircle, AlertTriangle, XCircle, Info, Clock, Server } from 'lucide
 import API from '../services/api'
 
 const severityConfig = {
-  critical: { color: 'danger',  Icon: XCircle },
-  high:     { color: 'warning', Icon: AlertTriangle },
-  medium:   { color: 'info',    Icon: Info },
-  low:      { color: 'success', Icon: CheckCircle },
+  critical: { color: 'danger', Icon: XCircle },
+  high: { color: 'warning', Icon: AlertTriangle },
+  medium: { color: 'info', Icon: Info },
+  low: { color: 'success', Icon: CheckCircle },
 }
 
 function Alerts() {

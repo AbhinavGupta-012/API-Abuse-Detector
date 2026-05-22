@@ -63,12 +63,12 @@ function Logs() {
       statusFilter === 'all'
         ? true
         : statusFilter === '2xx'
-        ? log.status >= 200 && log.status < 300
-        : statusFilter === '4xx'
-        ? log.status >= 400 && log.status < 500
-        : statusFilter === '5xx'
-        ? log.status >= 500
-        : true
+          ? log.status >= 200 && log.status < 300
+          : statusFilter === '4xx'
+            ? log.status >= 400 && log.status < 500
+            : statusFilter === '5xx'
+              ? log.status >= 500
+              : true
 
     return matchesSearch && matchesMethod && matchesStatus
 
